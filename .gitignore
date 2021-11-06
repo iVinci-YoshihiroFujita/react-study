@@ -1,3 +1,6 @@
 node_modules
 package-lock.json
 /front/dist/bundle.*
+/front/dist/*.png
+/front/dist/*.jpeg
+/front/dist/*.jpg
