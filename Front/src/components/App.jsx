@@ -4,7 +4,7 @@ import '../css/App.css';
 const App = () => {
   return (
     <div>
-      hogehoge
+      {process.env.HOGE}
     </div>
   );
 };
