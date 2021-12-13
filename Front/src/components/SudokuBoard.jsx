@@ -17,7 +17,7 @@ const sudokuData = '...465......2..7..9....76..6....234..15...2.9.4...8........6
 //  ..9 ... 5..
 
 const SudokuBoard = () => {
-  // 各ブロックに渡すデータの配列。各要素は{ value: x, fixed: true/false }。APIから渡された初期値はfixed: true
+  // 各ブロックデータの配列。各要素は{ value: x, fixed: true/false }。APIから渡された初期値はfixed: true
   const [blocks, setBlocks] = useState([]);
 
   // APIから受け取った数独のデータを良い感じに並び変える
