@@ -1,0 +1,10 @@
+.sudoku_cell_input {
+  border-color: #fff;
+  border-radius: 5px;
+  color: #787878;
+  text-align: center;
+}
+
+.sudoku_cell_input__fixed {
+  color: #5350ff;
+}

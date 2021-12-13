@@ -1,9 +1,76 @@
-import React from 'react';
+import React, {
+  useEffect, useState,
+} from 'react';
+import SudokuBlock from './SudokuBlock';
+import '../css/SudokuBoard.css';
+
+// APIから受け取った数独の文字列を使いやすい形にして各ブロックに展開する
+const sudokuData = '...465......2..7..9....76..6....234..15...2.9.4...8........6..17.1...9.3..9...5..';
+//  ... 465 ...
+//  ... 2.. 7..
+//  9.. ..7 6..
+//  6.. ..2 34.
+//  .15 ... 2.9
+//  .4. ..8 ...
+//  ... ..6 ..1
+//  7.1 ... 9.3
+//  ..9 ... 5..
 
 const SudokuBoard = () => {
-  return (
-    <>hogehoge</>
-  );
+  // 各ブロックに渡すデータの配列。各要素は{ value: x, fixed: true/false }。APIから渡された初期値はfixed: true
+  const [blocks, setBlocks] = useState([]);
+
+  // APIから受け取った数独のデータを良い感じに並び変える
+  useEffect(() => {
+    const _blocks = [[], [], [], [], [], [], [], [], []];
+    for (let i = 0; i < sudokuData.length / 3; i += 1) {
+      const rawdatas = sudokuData.slice(i * 3, (i + 1) * 3).split('');
+      const datas = rawdatas.map(d => {
+        const isNumberData = Number.isFinite(parseInt(d, 10));
+        return {
+          value: isNumberData ? d : '',
+          fixed: isNumberData,
+        }
+      });
+      const idx = Math.floor(i / 9) * 3 + (i % 3);
+      _blocks[idx].push(...datas);
+    }
+    setBlocks(_blocks);
+  }, []);
+
+  const onChangeCellInput = (event, blockIdx, blockCellIdx) => {
+    event.stopPropagation();
+    const value = event.target.value;
+    const newBlocks = blocks.slice();
+    newBlocks[blockIdx][blockCellIdx] = { value, fixed: false };
+    setBlocks(newBlocks);
+  };
+
+  // SudokuBlockコンポーネントに展開
+  const rows = blocks.reduce((acc, block, idx) => {
+    const rowIdx = Math.floor(idx / 3);
+    acc[rowIdx].push(
+      <SudokuBlock
+        key={`sudokublock_${idx}`}
+        blockIdx={idx}
+        block={block}
+        onChangeCellInput={onChangeCellInput}
+      />
+    );
+    return acc;
+  }, [[], [], []]);
+
+  // SudokuBlockコンポーネントを各行に3つずつ並べる
+  const content = rows.map((row, idx) => (
+    <div
+      key={`bulockrow_${idx}`}
+      className={'board_row'}
+    >
+      {row}
+    </div>
+  ));
+
+  return (content);
 };
 
 export default SudokuBoard;
