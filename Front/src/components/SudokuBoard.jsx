@@ -2,10 +2,11 @@ import React, {
   useEffect, useState,
 } from 'react';
 import SudokuBlock from './SudokuBlock';
+import getSudokuDataService from '../service/getSudokuDataService';
 import '../css/SudokuBoard.css';
 
 // APIから受け取った数独の文字列を使いやすい形にして各ブロックに展開する
-const sudokuData = '...465......2..7..9....76..6....234..15...2.9.4...8........6..17.1...9.3..9...5..';
+// const sudokuData = '...465......2..7..9....76..6....234..15...2.9.4...8........6..17.1...9.3..9...5..';
 //  ... 465 ...
 //  ... 2.. 7..
 //  9.. ..7 6..
@@ -23,6 +24,8 @@ const SudokuBoard = () => {
   // APIから受け取った数独のデータを良い感じに並び変える
   useEffect(() => {
     const _blocks = [[], [], [], [], [], [], [], [], []];
+    const sudokuData = getSudokuDataService();
+
     for (let i = 0; i < sudokuData.length / 3; i += 1) {
       const rawdatas = sudokuData.slice(i * 3, (i + 1) * 3).split('');
       const datas = rawdatas.map(d => {
