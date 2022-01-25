@@ -29,7 +29,7 @@ module.exports = {
   },
   resolve: { extensions: ['*', '.js', '.jsx'] },
   plugins: [
-    new webpack.EnvironmentPlugin(['HOGE']),
+    new webpack.EnvironmentPlugin(['API_HOST']),
   ],
   output: {
     path: path.resolve(__dirname, 'dist/'),

@@ -23,22 +23,12 @@ const SudokuBoard = () => {
 
   // APIから受け取った数独のデータを良い感じに並び変える
   useEffect(() => {
-    const _blocks = [[], [], [], [], [], [], [], [], []];
-    const sudokuData = getSudokuDataService();
-
-    for (let i = 0; i < sudokuData.length / 3; i += 1) {
-      const rawdatas = sudokuData.slice(i * 3, (i + 1) * 3).split('');
-      const datas = rawdatas.map(d => {
-        const isNumberData = Number.isFinite(parseInt(d, 10));
-        return {
-          value: isNumberData ? d : '',
-          fixed: isNumberData,
-        }
+    // 数独ゲームデータ取得
+    getSudokuDataService()
+      .then(svcResult => {
+        const sudokuData = svcResult.data;
+        setBlocks(sudokuData);
       });
-      const idx = Math.floor(i / 9) * 3 + (i % 3);
-      _blocks[idx].push(...datas);
-    }
-    setBlocks(_blocks);
   }, []);
 
   const onChangeCellInput = (event, blockIdx, blockCellIdx) => {
