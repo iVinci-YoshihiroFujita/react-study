@@ -18,20 +18,31 @@ const SudokuCell = (props) => {
     onChangeCellInput,
   } = props;
 
+  const option = data.fixed
+    ? (<option value={data.value}>{data.value}</option>)
+    : ([...Array(10)].map((_, idx) => {
+      return(
+        <option
+          key={`option_${idx}`}
+          value={idx > 0 ? idx : ''}
+        >
+          {idx === 0 ? "" : idx}
+        </option>
+      );
+    }));
+
   return (
-    <input
-      className={classNames('sudoku_cell_input', {
-        ['sudoku_cell_input__fixed']: data.fixed,
+    <select
+      className={classNames('sudoku_cell_select', {
+        ['sudoku_cell_select__fixed']: data.fixed,
       })}
-      type="number"
-      value={data.value}
-      min="1"
-      max="9"
-      step="1"
-      readOnly={data.fixed}
-      onChange={(event) =>
-        onChangeCellInput(event, blockIdx, blockCellIdx)}
-    />
+      onChange={event => {
+        onChangeCellInput(event, blockIdx, blockCellIdx)
+      }}
+      disabled={data.fixed}
+    >
+      { option }
+    </select>
   );
 };
 
