@@ -1,3 +1,17 @@
 .board_row {
   display: flex;
 }
+.spinner {
+  height: 100px;
+  width: 100px;
+  animation: Rotate 2.0s both infinite;
+}
+
+@keyframes Rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

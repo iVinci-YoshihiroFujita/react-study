@@ -2,6 +2,8 @@ import React, {
   useEffect, useState,
 } from 'react';
 import SudokuBlock from './SudokuBlock';
+import ModalContainer from './ModalContainer';
+import Spinner from '../img/spinner.svg';
 import getSudokuDataService from '../service/getSudokuDataService';
 import '../css/SudokuBoard.css';
 
@@ -20,15 +22,18 @@ import '../css/SudokuBoard.css';
 const SudokuBoard = () => {
   // 各ブロックデータの配列。各要素は{ value: x, fixed: true/false }。APIから渡された初期値はfixed: true
   const [blocks, setBlocks] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
 
   // APIから受け取った数独のデータを良い感じに並び変える
   useEffect(() => {
+    setIsFetching(true)
     // 数独ゲームデータ取得
     getSudokuDataService()
       .then(svcResult => {
         const sudokuData = svcResult.data;
         setBlocks(sudokuData);
-      });
+      })
+      .then(() => setIsFetching(false));
   }, []);
 
   const onChangeCellInput = (event, blockIdx, blockCellIdx) => {
@@ -63,7 +68,21 @@ const SudokuBoard = () => {
     </div>
   ));
 
-  return (content);
+  return (
+    <>
+      {isFetching &&
+        <ModalContainer
+          position='center'
+        >
+          <img
+            className={'spinner'}
+            src={Spinner}
+          />
+        </ModalContainer>
+      }
+      { content }
+    </>
+  );
 };
 
 export default SudokuBoard;

@@ -1,0 +1,27 @@
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #8b8b8b;
+  z-index: 100;
+  opacity: 0.5;
+}
+.modal {
+  height: inherit;
+  width: inherit;
+  display: flex;
+}
+.top {
+  align-items: flex-start;
+  justify-content: center;
+}
+.center {
+  align-items: center;
+  justify-content: center;
+}
+.bottom {
+  align-items: flex-end;
+  justify-content: center;
+}

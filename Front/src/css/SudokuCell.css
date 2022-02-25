@@ -8,8 +8,16 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  background-color: #fff;
+}
+
+.sudoku_cell_select_isdark {
+  color: #fff;
+  background-color: #656565;
 }
 
 .sudoku_cell_select__fixed {
   color: #5350ff;
+  background-color: #fff;
+  opacity: 1.0;
 }

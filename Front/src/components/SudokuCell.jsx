@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { ThemeContext } from './App';
 import '../css/SudokuCell.css';
 
 const propTypes = {
@@ -11,6 +12,7 @@ const propTypes = {
 };
 
 const SudokuCell = (props) => {
+  const theme = useContext(ThemeContext);
   const {
     blockIdx,
     blockCellIdx,
@@ -34,6 +36,7 @@ const SudokuCell = (props) => {
   return (
     <select
       className={classNames('sudoku_cell_select', {
+        ['sudoku_cell_select_isdark']: theme.isDark,
         ['sudoku_cell_select__fixed']: data.fixed,
       })}
       onChange={event => {
